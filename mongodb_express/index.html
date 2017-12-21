@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MY APP</title>
+</head>
+<body>
+  Super Hero quotes...
+<form action="/quotes" method="POST">
+  <input type="text" placeholder="name" name="name">
+  <input type="text" placeholder="quote" name="quote">
+  <button type="submit">Submit</button>
+</form>
+<!-- The action attribute tells the browser where to navigate to in our Express app. In this case, we’re navigating to /quotes. The method attribute tells the browser what to request to send. In this case, it’s a POST request.
+On our server, we can handle this POST request with a post method that Express provides. -->
+<style>
+  {
+    background-image:url("superheroes.jpg");
+  }
+</style>
+</body>
+</html>
