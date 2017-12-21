@@ -1,0 +1,32 @@
+TypeError: db.collection is not a function
+    at app.get (F:\KT_for_Abhishek\kt_express_mongodb\server.js:29:23)
+===========================================================================
+
+option 1: It's mongodb version error which is installed in project(v3.4.10). You should run npm install mongodb@2.2.5 --save in your project
+
+option 2: To keep using mongo 3 or higher like here v3.4.10 :-
+
+In version 2.x of the MongoDB native NodeJS driver you would get the database object as an argument to the connect callback:
+
+MongoClient.connect('mongodb://localhost:27017/mytestingdb', (err, db) => {
+  // Database returned
+});
+According to the changelog for 3.0 you now get a client object containing the database object instead:
+
+MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+  // Client returned
+  var db = client.db('mytestingdb');
+});
+The close() method has also been moved to the client. The code in the question can therefore be translated to:
+
+MongoClient.connect('mongodb://localhost', function (err, client) {
+  if (err) throw err;
+
+  var db = client.db('mytestingdb');
+
+  db.collection('customers').findOne({}, function (findErr, result) {
+    if (findErr) throw findErr;
+    console.log(result.name);
+    client.close();
+  });
+}); 
